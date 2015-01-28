@@ -1,5 +1,6 @@
 package com.pabloc6.sheepdating;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -145,6 +146,18 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
         } else if (v.getId() == R.id.b_view_all) {
             Log.d(TAG_LOCAL, "b_view_all");
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("SheepTable");
+            query.findInBackground(new FindCallback<ParseObject>() {
+                @Override
+                public void done(List<ParseObject> parseObjects, com.parse.ParseException e) {
+                    Log.d("DEBUG->", "Found " + parseObjects.size() + " records");
+                    Toast.makeText(getBaseContext(), parseObjects.size() + " items in table.", Toast.LENGTH_LONG).show();
+//                    Intent intent = new Intent(getApplicationContext(), MainActivity2.class);
+//                    List list = parseObjects;
+//                    intent.putExtra("list", parseObjects.toArray(List));
+//                    startActivity(intent);
+                }
+            });
 
         }
 

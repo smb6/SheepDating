@@ -9,5 +9,6 @@
     <string name="et_EnterName">Enter name</string>
     <string name="b_insert_data">Insert data</string>
     <string name="b_view_all">View all</string>
+    <string name="title_activity_main_activity2">MainActivity2</string>
 
 </resources>
