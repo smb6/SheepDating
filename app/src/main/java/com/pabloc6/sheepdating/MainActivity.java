@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.Parse;
@@ -123,6 +124,9 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         final String TAG_LOCAL = TAG + ".onClick";
         Log.d(TAG_LOCAL, "IN");
 
+        String tmpName = mEnterName.getText().toString();
+        String tmpAge = mEnterAge.getText().toString();
+
         boolean nameIsEmpty = mEnterName.getText().toString().isEmpty();
         boolean ageIsEmpty = mEnterAge.getText().toString().isEmpty();
 
@@ -132,6 +136,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             testObject.put("name", mEnterName.getText().toString());
             testObject.put("age", mEnterAge.getText().toString());
             testObject.saveInBackground();
+
+            Toast.makeText(getBaseContext(), "Inserted " + tmpName + " " + tmpAge, Toast.LENGTH_LONG).show();
 
             mEnterName.setText("");
             mEnterAge.setText("");
