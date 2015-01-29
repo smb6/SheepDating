@@ -16,7 +16,12 @@ import com.parse.Parse;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
+import java.lang.reflect.Array;
+import java.text.CollationKey;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -52,9 +57,9 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         Parse.initialize(this, "X55sojly2gvwQ6L5AmAhTWUMxjtFtpuSBf1RZZOR", "B4EuuDXZBaBTnDg8KBEDsjqWVRfrwPNkhetETKMk");
 
         testObject = new ParseObject("SheepTable");
-        testObject.put("name", "Fux");
-        testObject.put("age", "99");
-        testObject.saveInBackground();
+//        testObject.put("name", "Fux");
+//        testObject.put("age", "99");
+//        testObject.saveInBackground();
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("SheepTable");
         query.findInBackground(new FindCallback<ParseObject>() {
@@ -152,10 +157,39 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 public void done(List<ParseObject> parseObjects, com.parse.ParseException e) {
                     Log.d("DEBUG->", "Found " + parseObjects.size() + " records");
                     Toast.makeText(getBaseContext(), parseObjects.size() + " items in table.", Toast.LENGTH_LONG).show();
-//                    Intent intent = new Intent(getApplicationContext(), MainActivity2.class);
-//                    List list = parseObjects;
-//                    intent.putExtra("list", parseObjects.toArray(List));
-//                    startActivity(intent);
+
+
+                    Intent intent = new Intent(getApplicationContext(), MainActivity2.class);
+                    List list = (List) parseObjects;
+                    Log.d(TAG_LOCAL, list.toString());
+
+
+//                    String[] mNamesToDelete = {"Fux", "rvi"};
+//                    List<String> stooges = Arrays.asList("Larry", "Moe", "Curly");
+
+
+                    ArrayList<String> namesShow = new ArrayList<String>();
+
+                    /*String name = parseObjects.get(0).getString("name").toString();
+                    Log.d(TAG_LOCAL, "tmp: " + tmp + " " +  parseObjects.get(0).getList("name"));*/
+                    String tmpName = "";
+                    for (int i = 0; i < parseObjects.size(); i++) {
+                     //  tmpName = parseObjects.get(i).getString("name").toString();
+                        Log.d(TAG_LOCAL, "item " + i + ": is " + parseObjects.get(i).getString("name").toString());
+                        namesShow.add(parseObjects.get(i).getString("name").toString());
+
+                    }
+
+                    intent.putStringArrayListExtra("sheepNames", namesShow);
+
+                    String tmp = parseObjects.get(0).toString();
+                    Log.d(TAG_LOCAL, "tmp: " + tmp + " " +  parseObjects.get(0).getString("name").toString());
+                    tmp = parseObjects.get(1).getObjectId();
+                    Log.d(TAG_LOCAL, "" + tmp);
+
+
+
+                    startActivity(intent);
                 }
             });
 
